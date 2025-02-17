@@ -1,31 +1,29 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-ola-mundo
-spec:
-  replicas: 3  # Pode ajustar conforme a necessidade
-  selector:
-    matchLabels:
-      app: nginx-ola-mundo
-  template:
-    metadata:
-      labels:
-        app: nginx-ola-mundo
-    spec:
-      containers:
-      - name: nginx-ola-mundo
-        image: devsquads.azurecr.io/nginx-ola-mundo:latest  # Imagem que você fez o push para o ACR
-        ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-ola-mundo
-spec:
-  selector:
-    app: nginx-ola-mundo
-  ports:
-  - port: 80
-    targetPort: 80
-  type: LoadBalancer
+name: Build and Push to Azure ACR
+
+on:
+  push:
+    branches:
+      - main  # Ou o nome do seu branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: devsquads.azurecr.io
+          username: devsquads
+          password: ${{ secrets.ACR_PASSWORD }}  # Usando Secrets para segurança
+
+      - name: Build Docker Image
+        run: |
+          docker build -t devsquads.azurecr.io/nginx-ola-mundo:latest .
+
+      - name: Push Docker Image to ACR
+        run: |
+          docker push devsquads.azurecr.io/nginx-ola-mundo:latest
