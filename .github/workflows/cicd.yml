@@ -3,7 +3,7 @@ name: Build and Push to Azure ACR
 on:
   push:
     branches:
-      - main  # Ou o nome do seu branch
+      - main
 
 jobs:
   build-and-push:
@@ -18,7 +18,7 @@ jobs:
         with:
           login-server: devsquads.azurecr.io
           username: devsquads
-          password: ${{ secrets.ACR_PASSWORD }}  # Usando Secrets para segurança
+          password: ${{ secrets.ACR_PASSWORD }}  # Agora usando o Secret
 
       - name: Build Docker Image
         run: |
