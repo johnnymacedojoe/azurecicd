@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-ola-mundo
 spec:
-  replicas: 3  # Pode ajustar conforme a necessidade
+  replicas: 3
   selector:
     matchLabels:
       app: nginx-ola-mundo
@@ -12,9 +12,11 @@ spec:
       labels:
         app: nginx-ola-mundo
     spec:
+      imagePullSecrets:
+      - name: acr-secret  # <-- Aqui estamos vinculando a autenticação
       containers:
       - name: nginx-ola-mundo
-        image: devsquads.azurecr.io/nginx-ola-mundo:{{ .Values.image.tag }}  # Imagem que você fez o push para o ACR
+        image: devsquads.azurecr.io/nginx-ola-mundo:latest
         ports:
         - containerPort: 80
 ---
