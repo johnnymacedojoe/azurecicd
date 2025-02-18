@@ -1,3 +1,3 @@
 image:
-  tag: "1.0.0"
+  tag: "1.0.0"  # Sempre atualize essa tag quando fizer um novo build
 
