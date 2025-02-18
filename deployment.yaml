@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx-ola-mundo
-        image: devsquads.azurecr.io/nginx-ola-mundo:latest  # Imagem que você fez o push para o ACR
+        image: devsquads.azurecr.io/nginx-ola-mundo:{{ .Values.image.tag }}  # Imagem que você fez o push para o ACR
         ports:
         - containerPort: 80
 ---
