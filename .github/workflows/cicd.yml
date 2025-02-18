@@ -32,13 +32,13 @@ jobs:
           docker push devsquads.azurecr.io/nginx-ola-mundo:$NEW_TAG
           docker push devsquads.azurecr.io/nginx-ola-mundo:latest
 
-      - name: Atualizar tag da imagem no values.yaml
-        run: |
-          sed -i "s|tag:.*|tag: \"$NEW_TAG\"|" helm/values.yaml
-          git config --local user.email "github-actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add helm/values.yaml
-          git commit -m "Atualizando tag da imagem para $NEW_TAG"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Atualizar tag da imagem no values.yaml
+#        run: |
+#          sed -i "s|tag:.*|tag: \"$NEW_TAG\"|" helm/values.yaml
+#          git config --local user.email "github-actions@github.com"
+#          git config --local user.name "GitHub Actions"
+#          git add helm/values.yaml
+#          git commit -m "Atualizando tag da imagem para $NEW_TAG"
+#          git push origin main
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
